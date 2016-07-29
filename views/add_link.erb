@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add a Link</title>
+</head>
+<body>
+  <form action="/<%=@group%>/add" method="POST">
+    <input type="text" name="title" placeholder="Link title">
+    <input type="url" name="url" placeholder="www.example.com">
+    <br>
+    <textarea name="description" cols=40 rows=5>Enter a longer description of what people will find on the other end of the link.</textarea>
+    <button type="submit">Save</button>
+  </form>
+</body>
+</html>
