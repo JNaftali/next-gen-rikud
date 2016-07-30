@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Edit the links on nextgenrikud.com</title>
-</head>
-<body>
-  <a href="/new">Click here to add a new category.</a>
-  <p>Click on the '+' next to a category name to add a new link to that category</p>
-  <p>Click on the '+' next to a link title to edit that link</p>
-  <ul>
-    <% @links.each do |group, urls| %>
-      <li><%= group.split('_').map!{|x| x.capitalize}.join(' ') %><a href=<%= "/#{group}/add" %>>+</a><ul>
-        <% urls.each do |row| %>
-          <li><%= row['title'] %><a href=<%= "/#{group}/edit/#{row['id']}" %>>+</a> - <%= row['url'] %><br><p><%= row['description'] %></p></li>
-        <% end %>
-      </ul></li>
-    <% end %>
-  </ul>
-</body>
-</html>
+<a href="/new">Click here to add a new category.</a>
+<p>Click on the '+' next to a category name to add a new link to that category</p>
+<p>Click on the '+' next to a link title to edit that link</p>
+<ul>
+  <% @links.each do |group, urls| %>
+    <li><%= group.split('_').map!{|x| x.capitalize}.join(' ') %><a href=<%= "/#{group}/add" %>>+</a><ul>
+      <% urls.each do |row| %>
+        <li><%= row['title'] %><a href=<%= "/#{group}/edit/#{row['id']}" %>>+</a> - <%= row['url'] %><br><p><%= row['description'] %></p></li>
+      <% end %>
+    </ul></li>
+  <% end %>
+</ul>
