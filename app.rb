@@ -15,9 +15,11 @@ link_groups = db.execute <<-SQL
 link_groups.map! { |hash| hash['name'] }
 
 get '/' do
-  @tables = link_groups.map! {|w| parse_table_name(w)}
+  erb :home
+end
 
-  @tables.to_s
+get 'sessions' do
+  erb :sessions
 end
 
 #Admin homepage
