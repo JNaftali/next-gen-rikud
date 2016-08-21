@@ -6,4 +6,4 @@ sessions << {
 	description:  "Ossim chick. Takes like seven woks a day. Loves dat buti yoga."
 }
 
-sessions.each { |link| Link.create(link) }
+sessions.each { |link| Session.find_or_create_by(link) }

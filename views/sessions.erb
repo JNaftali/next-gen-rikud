@@ -1,8 +1,0 @@
-<ul>
-  <%=
-    def wraplink(link)
-      "<li>#{link["title"]} - #{link["url"]}<p>#{link["description"]}</li>"
-    end
-    @links.map { |link| wraplink(link) }.join("\n")
-  %>
-</ul>

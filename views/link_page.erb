@@ -1,0 +1,7 @@
+<h1><%=@category.capitalize %></h1>
+
+<ul>
+  <%=
+    @links.map { |link| "<li>#{link["title"]} - #{link["url"]}<p>#{link["description"]}</li>" }.join("\n")
+  %>
+</ul>

@@ -3,6 +3,7 @@ require "active_record"
 require "rake"
 require "sqlite3"
 require "pathname"
+require 'sinatra'
 
 
 # Identify the root directory for the application
@@ -40,7 +41,7 @@ ActiveRecord::Base.establish_connection(database_config)
 
 
 # Establish connection between models and tables
-# ActiveRecord::Base.connection
+ActiveRecord::Base.connection
 
 
 # Require files in app/views and app/controllers
