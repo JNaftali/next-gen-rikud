@@ -14,14 +14,17 @@ link_groups = db.execute <<-SQL
   SQL
 link_groups.map! { |hash| hash['name'] }
 
+#FRONTEND
 get '/' do
   erb :home
 end
 
-get 'sessions' do
+get '/sessions' do
+  @links = db.execute( "SELECT * FROM weekly_sessions")
   erb :sessions
 end
 
+#BACKEND
 #Admin homepage
 get '/edit' do
   @links = {}
