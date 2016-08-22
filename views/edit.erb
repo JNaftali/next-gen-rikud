@@ -5,7 +5,7 @@
   <% @links.each do |group, urls| %>
     <li><%= group.split('_').map!{|x| x.capitalize}.join(' ') %><a href=<%= "/#{group}/add" %>>+</a><ul>
       <% urls.each do |row| %>
-        <li><%= row['title'] %><a href=<%= "/#{group}/edit/#{row['id']}" %>>+</a> - <%= row['url'] %><br><p><%= row['description'] %></p></li>
+        <li><%= row.title %><a href=<%= "/#{group}/edit/#{row.id}" %>>+</a> - <%= row.url %><br><p><%= row.description %></p></li>
       <% end %>
     </ul></li>
   <% end %>

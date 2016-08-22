@@ -1,26 +1,26 @@
-db = SQLite3::Database.new("links.db")
-db.results_as_hash = true
+# db = SQLite3::Database.new("links.db")
+# db.results_as_hash = true
 
-link_groups = db.execute <<-SQL
-    SELECT name FROM sqlite_master
-    WHERE type='table';
-  SQL
-link_groups.map! { |hash| hash['name'] }
+# link_types = db.execute <<-SQL
+#     SELECT name FROM sqlite_master
+#     WHERE type='table';
+#   SQL
+# link_types.map! { |hash| hash['name'] }
 
 #BACKEND
 #Admin homepage
 get '/edit' do
-  @links = {}
-  link_groups.each do |table|
-    @links[table] = db.execute("SELECT * FROM #{table}")
-  end
+
+  @links = Link.all_by_type
 
   erb :edit
 end
 
-#Adding new link groups
+#Adding new link types
+#Unsure how to handle doing this. Maybe the answer is don't
 get '/new' do
   erb :new_category
+  "This doesn't work yet"
 end
 
 post '/new' do
@@ -30,30 +30,30 @@ post '/new' do
 end
 
 #Adding new links
-get '/:group/add' do
-  @group =  params['group']
+get '/:type/add' do
+  @type =  params['type']
   erb :add_link
 end
 
-post '/:group/add' do
-  db.execute("INSERT INTO #{params['group']}(title, url, description) VALUES (?, ?, ?)", params['title'], params['url'], params['description'])
+post '/:type/add' do
+  attributes = { title: params['title'], url: params['url'], description: params['description'], type: params['type'] }
+  Link.create(attributes)
   redirect '/edit'
 end
 
 #Editing existing links
-get '/:group/edit/:id' do
-  @group =  params['group']
+get '/:type/edit/:id' do
+  @type =  params['type']
   @id = params['id'].to_s
-  row = db.execute("SELECT * FROM #{params['group']} WHERE id = ?",@id)[0]
-  @title = row['title']
-  @url = row['url']
-  @description = row['description']
+  link = Link.find(@id)
+  @title = link.title
+  @url = link.url
+  @description = link.description
   erb :edit_link
 end
 
-post '/:group/edit/:id' do
-  db.execute("DELETE FROM #{params['group']} WHERE id=?",params['id'])
-  db.execute("INSERT INTO #{params['group']}(id, title, url, description) VALUES (?, ?, ?, ?)", params['id'], params['title'], params['url'], params['description'])
+post '/:type/edit/:id' do
+  Link.update(params['id'], title: params['title'], url: params['url'], description: params['description'])
 
   redirect '/edit'
 end
